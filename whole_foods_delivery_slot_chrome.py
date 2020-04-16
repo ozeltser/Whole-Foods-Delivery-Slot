@@ -26,39 +26,51 @@ def getWFSlot(productUrl):
       soup = bs4.BeautifulSoup(html)
       time.sleep(4)
 
-      slot_pattern = 'Next available'
-      try:
-         next_slot_text = soup.find('h4', class_ ='ufss-slotgroup-heading-text a-text-normal').text
-         if slot_pattern in next_slot_text:
-            print('SLOTS OPEN!')
-            os.system('say "Slots for delivery opened!"')
-            no_open_slots = False
-            time.sleep(1400)
-      except AttributeError:
-         continue
+      # slot_pattern = 'Next available'
+      # try:
+      #    next_slot_text = soup.find('h4', class_ ='ufss-slotgroup-heading-text a-text-normal').text
+      #    if slot_pattern in next_slot_text:
+      #       print('SLOTS OPEN!')
+      #       os.system('C:\espeak\command_line\espeak.exe "Slots for delivery opened!"')
+      #       no_open_slots = False
+      #       time.sleep(1400)
+      # except AttributeError:
+      #    pass
+
+      # try:
+      #    slot_opened_text = "Not available"
+      #    all_dates = soup.findAll("div", {"class": "ufss-date-select-toggle-text-availability"})
+      #    for each_date in all_dates:
+      #       if slot_opened_text not in each_date.text:
+      #          print('SLOTS OPEN!')
+      #          os.system('C:\espeak\command_line\espeak.exe "Slots for delivery opened!"')
+      #          no_open_slots = False
+      #          time.sleep(1400)
+      # except AttributeError:
+      #    pass
 
       try:
-         slot_opened_text = "Not available"
-         all_dates = soup.findAll("div", {"class": "ufss-date-select-toggle-text-availability"})
-         for each_date in all_dates:
-            if slot_opened_text not in each_date.text:
-               print('SLOTS OPEN!')
-               os.system('say "Slots for delivery opened!"')
+         no_open_slots = True
+         no_slot_pattern = 'No more delivery windows available.'
+         slot_pattern_all = soup.findAll('div', {"class": "title-4"})
+         for each_no_pattern in slot_pattern_all:
+            print(each_no_pattern.text)
+            if each_no_pattern.text == no_slot_pattern :
+               print("NO SLOTS!")
                no_open_slots = False
-               time.sleep(1400)
-      except AttributeError:
-         continue
+      # except AttributeError: 
+      #       print('SLOTS OPEN!')
+      #       os.system('C:\espeak\command_line\espeak.exe "Slots for delivery opened!"')
+      #       no_open_slots = False
+   
+   os.system('C:\espeak\command_line\espeak.exe "Slots for delivery opened!"')
 
-      try:
-         no_slot_pattern = 'No delivery windows available. New windows are released throughout the day.'
-         if no_slot_pattern == soup.find('h4', class_ ='a-alert-heading').text:
-            print("NO SLOTS!")
-      except AttributeError: 
-            print('SLOTS OPEN!')
-            os.system('say "Slots for delivery opened!"')
-            no_open_slots = False
+# getWFSlot('https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html?hasWorkingJavascript=1')
+getWFSlot('https://shop.shipt.com/checkout')
 
-
-getWFSlot('https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html?hasWorkingJavascript=1')
+def match(toMatch) : 
+    print(toMatch)
+    pattern = 'No more delivery windows available.'
+    print(pattern)
 
 
