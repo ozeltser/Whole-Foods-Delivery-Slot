@@ -41,7 +41,7 @@ def getWFSlot(productUrl):
     no_open_slots = True
     while no_open_slots:
         driver.refresh()
-        time.sleep(10)
+        time.sleep(20)
         print("refreshed")
         html = driver.page_source
         soup = bs4.BeautifulSoup(html)
@@ -51,7 +51,6 @@ def getWFSlot(productUrl):
         no_slot_pattern = 'No more delivery windows available.'
         slot_pattern_all = soup.findAll('div', {"class": "title-4"})
         for each_no_pattern in slot_pattern_all:
-           print(each_no_pattern.text)
            if each_no_pattern.text == no_slot_pattern:
               print("NO SLOTS!")
               no_open_slots = True
