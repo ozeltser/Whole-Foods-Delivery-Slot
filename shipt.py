@@ -40,8 +40,8 @@ def getWFSlot(productUrl):
     no_open_slots = True
     while no_open_slots:
         driver.refresh()
-        time.sleep(20)
         print("refreshed")
+        time.sleep(20)
         html = driver.page_source
         soup = bs4.BeautifulSoup(html)
 
