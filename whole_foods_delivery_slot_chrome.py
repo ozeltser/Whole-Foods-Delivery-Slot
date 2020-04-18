@@ -37,7 +37,6 @@ def getWFSlot(productUrl):
     #     print( item.attrs )
     # print(subtotal_pattern)
 
-
     no_open_slots = True
     while no_open_slots:
         driver.refresh()
@@ -45,15 +44,18 @@ def getWFSlot(productUrl):
         print("refreshed")
         html = driver.page_source
         soup = bs4.BeautifulSoup(html)
-        
 
         no_open_slots = False
         no_slot_pattern = 'No more delivery windows available.'
         slot_pattern_all = soup.findAll('div', {"class": "title-4"})
-        for each_no_pattern in slot_pattern_all:
-           if each_no_pattern.text == no_slot_pattern:
-              print("NO SLOTS!")
-              no_open_slots = True
+        if (len([x for x in slot_pattern_all if x.text == no_slot_pattern])):
+            # Found "No Slots" pattern
+            print("NO SLOTS!")
+            no_open_slots = True
+        # for each_no_pattern in slot_pattern_all:
+        #    if each_no_pattern.text == no_slot_pattern:
+        #       print("NO SLOTS!")
+        #       no_open_slots = True
     os.system(r'C:\espeak\eSpeak\command_line\espeak.exe "Slots for delivery opened!"')
     time.sleep(6000)
 
