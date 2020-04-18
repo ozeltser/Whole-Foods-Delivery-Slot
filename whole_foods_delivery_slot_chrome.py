@@ -31,7 +31,7 @@ def getWFSlot(productUrl):
          next_slot_text = soup.find('h4', class_ ='ufss-slotgroup-heading-text a-text-normal').text
          if slot_pattern in next_slot_text:
             print('SLOTS OPEN!')
-            os.system('say "Slots for delivery opened!"')
+            os.system('espeak "Slots for delivery opened!"')
             no_open_slots = False
             time.sleep(1400)
       except AttributeError:
@@ -43,7 +43,7 @@ def getWFSlot(productUrl):
          for each_date in all_dates:
             if slot_opened_text not in each_date.text:
                print('SLOTS OPEN!')
-               os.system('say "Slots for delivery opened!"')
+               os.system('espeak "Slots for delivery opened!"')
                no_open_slots = False
                time.sleep(1400)
       except AttributeError:
@@ -55,7 +55,7 @@ def getWFSlot(productUrl):
             print("NO SLOTS!")
       except AttributeError: 
             print('SLOTS OPEN!')
-            os.system('say "Slots for delivery opened!"')
+            os.system('espeak "Slots for delivery opened!"')
             no_open_slots = False
 
 
