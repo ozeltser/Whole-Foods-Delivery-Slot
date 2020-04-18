@@ -11,9 +11,9 @@ import os
 
 
 def getWFSlot(productUrl):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
-    }
+    # headers = {
+    #     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
+    # }
 
     driver = webdriver.Chrome()
     driver.get(productUrl)           
@@ -28,12 +28,14 @@ def getWFSlot(productUrl):
         print('We are on the wrong page, waiting')
         time.sleep(10)
 
-    html = driver.page_source
-    # soup.findAll('span', {"data-test": "Checkout-total"})
-    subtotal_pattern = soup.findAll('dd')
-    for item in subtotal_pattern:
-        print( item.attrs )
-    print(subtotal_pattern)
+    driver.refresh()
+    time.sleep(10)
+    # html = driver.page_source
+    # # soup.findAll('span', {"data-test": "Checkout-total"})
+    # subtotal_pattern = soup.findAll('span')
+    # for item in subtotal_pattern:
+    #     print( item.attrs )
+    # print(subtotal_pattern)
 
 
     no_open_slots = True
@@ -53,8 +55,8 @@ def getWFSlot(productUrl):
            if each_no_pattern.text == no_slot_pattern:
               print("NO SLOTS!")
               no_open_slots = True
-    os.system('C:\espeak\eSpeak\command_line\espeak.exe "Slots for delivery opened!"')
-    time.sleep(600)
+    os.system(r'C:\espeak\eSpeak\command_line\espeak.exe "Slots for delivery opened!"')
+    time.sleep(6000)
 
 getWFSlot('https://shop.shipt.com/checkout')
 
