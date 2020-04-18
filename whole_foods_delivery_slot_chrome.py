@@ -18,8 +18,22 @@ def getWFSlot(productUrl):
     driver = webdriver.Chrome()
     driver.get(productUrl)           
     html = driver.page_source
-    soup = bs4.BeautifulSoup(html)
-    time.sleep(60)
+    soup = bs4.BeautifulSoup(html, features="html.parser")
+    time.sleep(10)
+
+
+    # wait untill we get to proper checkout page_source
+    while driver.current_url != productUrl:
+        print('Current Url ' + driver.current_url)
+        print('We are on the wrong page, waiting')
+        time.sleep(10)
+
+    html = driver.page_source
+    # soup.findAll('span', {"data-test": "Checkout-total"})
+    subtotal_pattern = soup.findAll('dd')
+    for item in subtotal_pattern:
+        print( item.attrs )
+    print(subtotal_pattern)
 
 
     no_open_slots = True
